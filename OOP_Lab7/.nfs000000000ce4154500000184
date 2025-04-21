@@ -1,0 +1,26 @@
+CXX = g++
+CXXFLAGS = -Wall -g
+TARGET = Lab07
+OBJS = main.o Cylinder.o
+
+all: $(TARGET)
+
+$(TARGET): $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $(TARGET) $(OBJS)
+
+main.o: main.cpp Cylinder.h
+	$(CXX) $(CXXFLAGS) -c main.cpp
+
+Cylinder.o: Cylinder.cpp Cylinder.h
+	$(CXX) $(CXXFLAGS) -c Cylinder.cpp
+
+clean:
+	rm -f $(TARGET) $(OBJS)
+
+run: $(TARGET)
+	./$(TARGET)
+
+debug: CXXFLAGS += -DDEBUG
+debug: clean all
+
+.PHONY: all clean run debug
